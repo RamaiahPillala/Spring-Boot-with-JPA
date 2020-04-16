@@ -10,16 +10,17 @@ import com.spring.info.beans.SomeBeanforStaticFilter;
 
 @RestController
 public class StaticFilterController {
-	
-	
-@GetMapping(path ="filter1")	
-public SomeBeanforStaticFilter filterOne() {
-	
-	return new SomeBeanforStaticFilter("ramaiah", "somaiah", "chaitu");
-	
-}    @GetMapping(path ="filter2")
-	public List<SomeBeanforStaticFilter> filterTwo(){
-		
+
+	@GetMapping(path = "filter1")
+	public SomeBeanforStaticFilter filterOne() {
+
+		return new SomeBeanforStaticFilter("ramaiah", "somaiah", "chaitu");
+
+	}
+
+	@GetMapping(path = "filter2")
+	public List<SomeBeanforStaticFilter> filterTwo() {
+
 		return Arrays.asList(new SomeBeanforStaticFilter("ramaiah1", "somaiah1", "chaitu"),
 				new SomeBeanforStaticFilter("ramaiah2", "somaiah2", "chaitu2"));
 	}

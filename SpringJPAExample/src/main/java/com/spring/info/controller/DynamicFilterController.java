@@ -14,7 +14,7 @@ public class DynamicFilterController {
 	
 	@GetMapping(path ="/dynamicFilter")
 	public MappingJacksonValue getDynamicInfo() {
-		DynamicFilterBean filterBean = new DynamicFilterBean("Somaiah", "Ramaiah", "chaitu", "Amma");
+		DynamicFilterBean filterBean = new DynamicFilterBean("Somaiah", "Ramaiah22", "chaitu", "Amma");
 		SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("filed1","filed2");
 		FilterProvider filters = new SimpleFilterProvider().addFilter("mappingToController",filter);
 		MappingJacksonValue mapping = new MappingJacksonValue(filterBean);

@@ -2,19 +2,31 @@ package com.spring.info.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+@ApiModel(description = "All details about user")
+@Entity
+@Table(name = "user")
 public class User {
-	
+	@Id
+	@GeneratedValue
 	private Integer id;
 	
 	// providing validation by using @size,@past and @valid from
 	// java.validation api and java validation api
 	//Genearally we will provide the validation , when we are inserting record or creating user using @postMapping
 	
+	@Column(name = "user_name")
 	@Size(min = 3,message = "Name should be atleast 3 charactors")
 	private String name;
+	@Column(name = "birth_date")
 	@Past(message = "Birth date should be always past date not future date")
 	private Date birthDate;
 	public User(Integer id, String name, Date birthDate) {

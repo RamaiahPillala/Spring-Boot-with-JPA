@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.spring.info.beans.Post;
 import com.spring.info.beans.User;
 import com.spring.info.exception.UserNotFoundException;
+import com.spring.info.repository.PostRepository;
 import com.spring.info.repository.UserJpaRepository;
 import com.spring.info.service.UserService;
 
@@ -31,6 +33,9 @@ public class UserJpaController {
 
 	@Autowired
 	private UserJpaRepository repository;
+
+	@Autowired
+	private PostRepository postRepository;
 
 	@GetMapping("/jpa/users")
 	public List<User> findAllUsers() {
@@ -63,6 +68,40 @@ public class UserJpaController {
 	public void deleteUser(@PathVariable int id) {
 
 		repository.deleteById(id);
+
+	}
+
+	/**
+	 * implementing oneTomany relation ship between user to post classes below below
+	 * request is used to getting posts of specific user
+	 */
+	@GetMapping("/jpa/users/{id}/posts")
+	public List<Post> getPostsToUser(@PathVariable int id) {
+		Optional<User> optional = repository.findById(id);
+		if (!optional.isPresent()) {
+			throw new UserNotFoundException("id   :" + id);
+		}
+
+		return optional.get().getPosts();
+	}
+
+	/**
+	 * In below method we are creating/adding Post record to p@articular user
+	 * 
+	 */
+	@PostMapping("/jpa/add/{id}/addPost")
+	public ResponseEntity<Object> createPostToUser(@PathVariable int id, @RequestBody Post post) {
+		Optional<User> user = repository.findById(id);
+		if (!user.isPresent()) {
+			throw new UserNotFoundException("idd  ::" + id);
+		}
+		User userInfo = user.get();
+		post.setUser(userInfo);
+		postRepository.save(post);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId())
+				.toUri();
+
+		return ResponseEntity.created(location).build();
 
 	}
 

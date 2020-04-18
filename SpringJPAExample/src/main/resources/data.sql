@@ -4,3 +4,7 @@ insert into user values(3, sysdate() ,'saidaiah');
 insert into user values(4, sysdate() ,'chaitu');
 insert into user values(5, sysdate() ,'keerhi');
 insert into user values(6, sysdate() ,'gomathi');
+insert into post values(1000, 'FirstPost' , 1);
+insert into post values(1002, 'SecondPost', 2);
+insert into post values(1003, 'ThirdPost' , 3);
+insert into post values(1004, 'FourthPost', 4);
